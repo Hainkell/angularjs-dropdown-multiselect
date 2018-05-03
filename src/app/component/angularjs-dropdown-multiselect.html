@@ -1,10 +1,11 @@
 <div class="multiselect-parent btn-group dropdown-multiselect"
      ng-class="{open: open}">
-     <div ng-transclude="toggleDropdown" ng-click="toggleDropdown()">
+     <div ng-transclude="toggleDropdown" >
       <button ng-disabled="disabled"
               type="button"
               class="dropdown-toggle"
               ng-class="settings.buttonClasses"
+			  ng-click="toggleDropdown()"
               >
         {{getButtonText()}}&nbsp;<span class="caret"></span>
       </button>

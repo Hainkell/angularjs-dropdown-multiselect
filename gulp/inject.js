@@ -1,36 +1,37 @@
-'use strict';
+/* eslint-disable import/no-extraneous-dependencies */
 
-var path = require('path');
-var gulp = require('gulp');
-var conf = require('./conf');
 
-var $ = require('gulp-load-plugins')();
+const path = require('path');
+const gulp = require('gulp');
+const conf = require('./conf');
 
-var wiredep = require('wiredep').stream;
-var _ = require('lodash');
+const $ = require('gulp-load-plugins')();
 
-var browserSync = require('browser-sync');
+const wiredep = require('wiredep').stream;
+const _ = require('lodash');
 
-gulp.task('inject-reload', ['inject'], function() {
-  browserSync.reload();
+const browserSync = require('browser-sync');
+
+gulp.task('inject-reload', ['inject'], () => {
+	browserSync.reload();
 });
 
-gulp.task('inject', ['scripts', 'styles'], function () {
-  var injectStyles = gulp.src([
-    path.join(conf.paths.tmp, '/serve/app/**/*.css'),
-    path.join('!' + conf.paths.tmp, '/serve/app/vendor.css')
-  ], { read: false });
+gulp.task('inject', ['scripts', 'styles'], () => {
+	const injectStyles = gulp.src([
+		path.join(conf.paths.tmp, '/serve/app/**/*.css'),
+		path.join(`!${conf.paths.tmp}`, '/serve/app/vendor.css'),
+	], { read: false });
 
-  var injectScripts = gulp.src([
-    path.join(conf.paths.tmp, '/serve/app/**/*.module.js')
-  ], { read: false });
+	const injectScripts = gulp.src([
+		path.join(conf.paths.tmp, '/serve/app/**/*.module.js'),
+	], { read: false });
 
-  var injectOptions = {
-    ignorePath: [conf.paths.src, path.join(conf.paths.tmp, '/serve')],
-    addRootSlash: false
-  };
+	const injectOptions = {
+		ignorePath: [conf.paths.src, path.join(conf.paths.tmp, '/serve')],
+		addRootSlash: false,
+	};
 
-  return gulp.src(path.join(conf.paths.src, '/*.html'))
+	return gulp.src(path.join(conf.paths.src, '/*.html'))
     .pipe($.inject(injectStyles, injectOptions))
     .pipe($.inject(injectScripts, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))

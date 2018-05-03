@@ -10,7 +10,7 @@ export default function dropdownMultiselectDirective() {
 			events: '=',
 			searchFilter: '=?',
 			translationTexts: '=',
-			disabled: '=',
+			disabled: '=msdDisabled',
 		},
 		transclude: {
 			toggleDropdown: '?toggleDropdown',
